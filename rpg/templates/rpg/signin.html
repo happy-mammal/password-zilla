@@ -1,0 +1,25 @@
+{% extends "rpg/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class="container">
+	<br><br>
+	<h1>Sign In</h1>
+	<br>
+	<div class="border-top pt-3"></div>
+	<form method="post">
+	{% csrf_token %}
+	{{ form|crispy }}
+	<br>
+	<button type="submit" class="btn btn-outline-success" name="save">Sign In</button>
+	
+	</form>
+	<br>
+	<div class="border-top pt-3">
+		<small class="text-muted">
+			Need An Account? <a class="ml-2" href="{% url 'rpg-signup' %}">Sign Up</a>
+		</small>
+	</div>
+</div>
+	
+{% endblock content %}

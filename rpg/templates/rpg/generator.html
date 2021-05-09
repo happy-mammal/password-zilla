@@ -1,0 +1,101 @@
+{% extends "rpg/base.html" %}
+{% block content %}
+{% load crispy_forms_tags %}
+
+ <div class="container mt-5">
+            <div class="row">
+                <div class="col-lg-8">
+                    <!-- Post content-->
+                    <article>
+                        <!-- Post header-->
+                        <header class="mb-4">
+                            <!-- Post title-->
+                            <h1 class="fw-bolder mb-1">Password Generator</h1>
+                            <!-- Post meta content-->
+                            <div class="text-muted fst-italic mb-2">Pick a preset or create one,hit on generate and boom ! Get a password generated 
+                            as per your needs within seconds.</div>
+                           
+                        </header>
+                        
+                    <section class="mb-5">
+                        <div class="card bg-light">
+                            <div class="card-body">
+                                <!-- Comment form-->
+                                <form class="mb-4" method="post">
+                                	
+                                {% csrf_token %}
+
+                                {{ form|crispy }}
+                                
+								<br>
+                                <div class="col">
+                                    <button type="submit" class="btn btn-outline-success" name="generate">Generate Password(s)</button>
+                                    &nbsp;&nbsp;
+                                    <button type="submit" class="btn btn-outline-primary" name="save">Save Preset</button>
+                                </div>
+                                
+								</form>
+                                <div class="border-top pt-3"></div>
+                                <textarea class="form-control" id="display_passwords" name="display_passwords" rows="5" disabled>
+                                    
+                                        {{ result }}
+                                    
+                                </textarea>
+                                <!-- Comment with nested comments-->
+                                <div class="d-flex mb-4">
+                                   
+                                </div>
+                                <!-- Single comment-->
+                                <div class="d-flex">
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                <!-- Side widgets-->
+
+                <div class="col-lg-4">
+                    <h1>Your Saved Presets</h1>
+                    {% for preset in presets %}
+                    <div class="card mb-4">
+                        <div class="card-header">{{ preset.preset_title }}</div>
+                        <div class="card-body">
+
+                            <h6>Password Length - {{preset.p_length}}</h6>
+
+                            {% if preset.is_letter%}
+                            <h6>Include Letters - Yes</h6>
+                            {% else %}
+                            <h6>Include Letters - No</h6>
+                            {% endif %}
+
+                            {% if preset.is_digit%}
+                            <h6>Include Numbers - Yes</h6>
+                            {% else %}
+                            <h6>Include Numbers - No</h6>
+                            {% endif %}
+
+                            {% if preset.is_symbol%}
+                            <h6>Include Symbols - Yes</h6>
+                            {% else %}
+                            <h6>Include Symbols - No</h6>
+                            {% endif %}
+
+                            {% if preset.is_unique%}
+                            <h6>Occurence - Unique</h6>
+                            {% else %}
+                            <h6>Occurence - Repeated</h6>
+                            {% endif %}
+
+                            <h6>Number Of Results - {{preset.no_of_results}}</h6>
+
+                            <div class="border-top pt-3"></div>
+
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+{% endblock content %}

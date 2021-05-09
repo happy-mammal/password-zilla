@@ -1,0 +1,20 @@
+{% extends "rpg/base.html" %}
+{% block content %}
+<div class="container">
+	<br><br>
+	<div class="alert alert-info" role="alert">
+  <h4 class="alert-heading">Logged Out!</h4>
+  <p>You have been logged out successfully. You can login again whenever you like to come back here and use our generator. <br> Stay Home Stay Safe</p>
+  <hr>
+  <p class="mb-0">Thanks for spending some quality time with the Password Zilla today.</p>
+</div>
+	
+	<br>
+	<div class="border-top pt-3">
+		<small class="text-muted">
+			Already Have An Account? <a class="ml-2" href="{% url 'rpg-signin' %}">Sign in Again</a>
+		</small>
+	</div>
+</div>
+	
+{% endblock content %}
