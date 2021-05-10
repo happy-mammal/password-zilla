@@ -11,7 +11,10 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+import environ
 
+env = environ.Env()
+environ.Env.read_env()
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -83,9 +86,9 @@ DATABASES = {
  
     'default': {
         'ENGINE': 'djongo',
-        'NAME': 'password_zilla',
+        'NAME': env('DATABASE_NAME'),
         'CLIENT': {
-           'host': 'mongodb+srv://happymammal:vwwrVmEv8GyNyUda@cluster0.hrnk6.mongodb.net/password_zilla?retryWrites=true&w=majority',
+           'host': env('DB_HOST_URL'),
         }
     }
 
