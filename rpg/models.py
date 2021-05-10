@@ -11,3 +11,7 @@ class Presets(models.Model):
 	no_of_results = models.PositiveSmallIntegerField()
 	preset_title = models.CharField(max_length=30)
 
+class Tips(models.Model):
+	user_name = models.CharField(max_length=20)
+	tips = models.TextField()
+

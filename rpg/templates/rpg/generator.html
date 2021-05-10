@@ -31,16 +31,18 @@
                                 <div class="col">
                                     <button type="submit" class="btn btn-outline-success" name="generate">Generate Password(s)</button>
                                     &nbsp;&nbsp;
-                                    <button type="submit" class="btn btn-outline-primary" name="save">Save Preset</button>
+                                    <button type="submit" class="btn btn-outline-primary" name="save_preset">Save Preset</button>
                                 </div>
                                 
 								</form>
                                 <div class="border-top pt-3"></div>
-                                <textarea class="form-control" id="display_passwords" name="display_passwords" rows="5" disabled>
-                                    
-                                        {{ result }}
-                                    
-                                </textarea>
+                                {% for password in result %}
+                                    <div class="input-group mb-3">
+                                    <input type="text" class="form-control" id="ptf-{{ password }}" placeholder="Your new password will appear here." aria-label="Your new password will appear here." aria-describedby="button-addon2" value="[Add Your Note Here]--> {{ password }}">
+                                    <button class="btn btn-outline-secondary" type="button" onclick="copyToClipboard('ptf-{{password }}')">Copy</button>
+                                    </div>
+                                {% endfor %}
+                               
                                 <!-- Comment with nested comments-->
                                 <div class="d-flex mb-4">
                                    
@@ -91,6 +93,15 @@
                             <h6>Number Of Results - {{preset.no_of_results}}</h6>
 
                             <div class="border-top pt-3"></div>
+                            <form method="post">
+                                {% csrf_token %}
+                                <div class="col">
+                                     <input type="hidden" name="preset_id" id="preset_id" value="{{preset.id}}">
+                                    <button type="submit" class="btn btn-outline-dark" name="load_preset">Load This Preset</button>
+                                    &nbsp;&nbsp;
+                                    <button type="submit" class="btn btn-outline-danger" name="remove_preset">Remove This Preset</button>
+                                </div>
+                            </form>
 
                         </div>
                     </div>
@@ -98,4 +109,20 @@
                 </div>
             </div>
         </div>
+        <script type="text/javascript">
+            function copyToClipboard(element) {
+              /* Get the text field */
+              var copyText = document.getElementById(element);
+
+              /* Select the text field */
+              copyText.select();
+              copyText.setSelectionRange(0, 99999); /* For mobile devices */
+
+              /* Copy the text inside the text field */
+              document.execCommand("copy");
+
+              /* Alert the copied text */
+              alert("Password Copied Successfully !!");
+            }
+        </script>
 {% endblock content %}

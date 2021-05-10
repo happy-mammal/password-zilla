@@ -1,4 +1,89 @@
 {% extends "rpg/base.html" %}
+{% load static %}
 {% block content %}
-	<h1>Welcome to the new About</h1>
+	<div class="bg-light">
+  <div class="container py-5">
+    <div class="row h-100 align-items-center py-5">
+      <div class="col-lg-6">
+        <h1 class="display-4">About us</h1>
+        <p class="lead text-muted mb-0">Password zilla is a free to use secure password generator. Switch your access codes in a snap. Get a password buddy cuz in web of mystery data's a secrecy . Data protection Charms and Spells available here.</p>
+        
+      </div>
+      <div class="col-lg-6 d-none d-lg-block"><img src="https://res.cloudinary.com/mhmd/image/upload/v1556834136/illus_kftyh4.png" alt="" class="img-fluid"></div>
+    </div>
+  </div>
+</div>
+
+<div class="bg-white py-5">
+  <div class="container py-5">
+    <div class="row align-items-center mb-5">
+      <div class="col-lg-6 order-2 order-lg-1"><i class="fa fa-bar-chart fa-2x mb-3 text-primary"></i>
+        <h2 class="font-weight-light">Saved Presets saves your time</h2>
+        <p class="font-italic text-muted mb-4">It's boring to fill out the same preference every time to generate password isn't it ? <br>
+        PasswordZilla allows you to save your preferences as presets and next time you can load your favrouit preset from the list and just click on generate password(s).</p><a href="{% url 'rpg-generator' %}" class="btn btn-light px-5 rounded-pill shadow-sm">Check Out Our Generator</a>
+      </div>
+      <div class="col-lg-5 px-5 mx-auto order-1 order-lg-2"><img src="https://res.cloudinary.com/mhmd/image/upload/v1556834139/img-1_e25nvh.jpg" alt="" class="img-fluid mb-4 mb-lg-0"></div>
+    </div>
+    <div class="row align-items-center">
+      <div class="col-lg-5 px-5 mx-auto"><img src="https://res.cloudinary.com/mhmd/image/upload/v1556834136/img-2_vdgqgn.jpg" alt="" class="img-fluid mb-4 mb-lg-0"></div>
+      <div class="col-lg-6"><i class="fa fa-leaf fa-2x mb-3 text-primary"></i>
+        <h2 class="font-weight-light">Get some Password Education</h2>
+        <p class="font-italic text-muted mb-4">Get tips on how to prevent your passwords from being hacked by social engineering, brute force or dictionary attack method, and keep your online accounts safe on PasswordZilla. <br>OR <br>Having some more helpful tips to share with the world ? Share it on PasswordZilla and make other's educate about how to protect their passwords.<br> </p>
+        <a href="{% url 'rpg-tips' %}" class="btn btn-light px-5 rounded-pill shadow-sm">Check Out Our Tips.</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="bg-light py-5">
+  <div class="container py-5">
+    <div class="row mb-4">
+      <div class="col-lg-5">
+        <h2 class="display-4 font-weight-light">Our team</h2>
+        <p class="font-italic text-muted">Meet the wonderful team behind PasswordZilla</p>
+      </div>
+    </div>
+
+    <div class="row text-center">
+      <!-- Team item-->
+      <div class="col-xl-3 col-sm-6 mb-5">
+        <div class="bg-white rounded shadow-sm py-5 px-4">
+        	<img src="{% static 'rpg/dev1.jpg' %}" class="img-fluid rounded-circle mb-4 img-thumbnail shadow-sm" style="width:150px;height:150px;">
+          	<h5 class="mb-0">Yash Lalit</h5><span class="small text-uppercase text-muted">CEA-469</span>
+        </div>
+      </div>
+      <!-- End-->
+
+     <!-- Team item-->
+      <div class="col-xl-3 col-sm-6 mb-5">
+        <div class="bg-white rounded shadow-sm py-5 px-4">
+        	<img src="{% static 'rpg/dev2.jpeg' %}" class="img-fluid rounded-circle mb-4 img-thumbnail shadow-sm" style="width:150px;height:150px;">
+          	<h5 class="mb-0">Priti Nagashankare</h5><span class="small text-uppercase text-muted">CEA-470</span>
+        </div>
+      </div>
+      <!-- End-->
+
+    <!-- Team item-->
+      <div class="col-xl-3 col-sm-6 mb-5">
+        <div class="bg-white rounded shadow-sm py-5 px-4">
+        	<img src="{% static 'rpg/dev3.jpeg' %}" class="img-fluid rounded-circle mb-4 img-thumbnail shadow-sm" style="width:150px;height:150px;">
+          	<h5 class="mb-0">Daries Xavier</h5><span class="small text-uppercase text-muted">CEA-471</span>
+        </div>
+      </div>
+      <!-- End-->
+
+     <!-- Team item-->
+      <div class="col-xl-3 col-sm-6 mb-5">
+        <div class="bg-white rounded shadow-sm py-5 px-4">
+        	<img src="{% static 'rpg/dev4.jpeg' %}" class="img-fluid rounded-circle mb-4 img-thumbnail shadow-sm" style="width:150px;height:150px;">
+          	<h5 class="mb-0">Priyanka More</h5><span class="small text-uppercase text-muted">CEA-472</span>
+        </div>
+      </div>
+      <!-- End-->
+
+    </div>
+  </div>
+</div>
+
+
 {% endblock content %}

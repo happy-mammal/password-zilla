@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from . import forms
-from .models import Presets
+from .models import Presets,Tips
 from .generator import RandomPasswordGenerator
 
 def home(request):
@@ -14,15 +14,21 @@ def about(request):
 	return render(request, 'rpg/about.html', {"title": "About"})
 
 @login_required
+def tips(request):
+	tips = Tips.objects.all()
+	return render(request, 'rpg/tips.html', {"title": "Tips","tips":tips})
+
+@login_required
 def generator(request):
 	passwords = []
+	presets = []
 	if request.method== 'POST':
 		
 		form = forms.GeneratorForm(request.POST)
 		
 		if form.is_valid():
 			
-			if 'save' in request.POST:
+			if 'save_preset' in request.POST:
 
 				password_length = form.cleaned_data["password_length"]
 				has_chars = form.cleaned_data["has_chars"]
@@ -52,29 +58,27 @@ def generator(request):
 				return redirect('rpg-generator')
 
 			else:
-				presets = Presets.objects.filter(user_id=request.user.id)
-				rpg = RandomPasswordGenerator()
-
 				password_length = int(form.cleaned_data["password_length"])
 				has_chars = form.cleaned_data["has_chars"]
 				has_digits = form.cleaned_data["has_digits"]
 				has_symbols = form.cleaned_data["has_symbols"]
 				password_case = form.cleaned_data["password_case"]
-				occurence = bool(form.cleaned_data["occurence"])
+				occurence = form.cleaned_data["occurence"]
 				results_no = int(form.cleaned_data["results_no"])
 				preset_title = 	form.cleaned_data["preset_title"]
 
-				if(has_chars == False and has_digits == False, has_symbols == False):
-					has_digits = True
-					has_symbols = True
-
+				rpg = RandomPasswordGenerator()
 				passwords = rpg.onGeneratePressed(password_length,has_chars,has_digits,has_symbols,password_case,results_no,occurence)
-				#passwords= [password_length,has_chars,has_digits,has_symbols,password_case,occurence,results_no]
-
+				presets = Presets.objects.filter(user_id=request.user.id)
+		
+		elif 'remove_preset' in request.POST:
+			preset = Presets.objects.filter(id=request.POST["preset_id"])
+			preset.delete()	
+			return redirect('rpg-generator')		
 	else:
 		form = forms.GeneratorForm()	
 		presets = Presets.objects.filter(user_id=request.user.id)
-	
+
 	return render(request, 'rpg/generator.html', {"title": "Generator","form":form,"presets":presets,"result":passwords})
 
 def signin(request):

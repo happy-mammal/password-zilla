@@ -34,7 +34,7 @@ class GeneratorForm(forms.Form):
 		occurence_choices=[(True,'Unique'),
          (False,'Repeated')]
 
-		occurence = forms.ChoiceField(choices=occurence_choices, widget=forms.RadioSelect)
+		occurence = forms.BooleanField(label="Get Unique Characters",required = False)
 
 		result_choices=()
 		for x in range (1,11):
