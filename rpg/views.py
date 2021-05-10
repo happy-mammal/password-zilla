@@ -15,13 +15,22 @@ def about(request):
 
 @login_required
 def tips(request):
-	tips = Tips.objects.all()
+	if request.method== 'POST':
+		if 'share_tip' in request.POST:
+			tip = Tips(user_name=request.user.username,tips=request.POST["txt_tip"])
+			tip.save()
+			messages.success(request,f'Hurray! You just shared a password protection tip!\nWell done! Keep sharing with the world!')
+			return redirect('rpg-tips')	
+	else:
+		tips = Tips.objects.all()
+
 	return render(request, 'rpg/tips.html', {"title": "Tips","tips":tips})
 
 @login_required
 def generator(request):
 	passwords = []
 	presets = []
+	
 	if request.method== 'POST':
 		
 		form = forms.GeneratorForm(request.POST)
@@ -74,9 +83,22 @@ def generator(request):
 		elif 'remove_preset' in request.POST:
 			preset = Presets.objects.filter(id=request.POST["preset_id"])
 			preset.delete()	
-			return redirect('rpg-generator')		
+			return redirect('rpg-generator')
+
+		elif 'load_preset' in request.POST:
+			form = forms.GeneratorForm(initial={
+				"password_length":request.POST["preset_len"],
+				"has_chars":request.POST["preset_has_char"],
+				"has_digits":request.POST["preset_has_num"],
+				"has_symbols":request.POST["preset_has_symb"],
+				"password_case":request.POST["preset_case"],
+				"occurence":request.POST["preset_has_unique"],
+				"results_no":request.POST["preset_num_res"],
+				})
+			presets = Presets.objects.filter(user_id=request.user.id)	
+			#return redirect('rpg-generator')		
 	else:
-		form = forms.GeneratorForm()	
+		form = forms.GeneratorForm()		
 		presets = Presets.objects.filter(user_id=request.user.id)
 
 	return render(request, 'rpg/generator.html', {"title": "Generator","form":form,"presets":presets,"result":passwords})

@@ -72,19 +72,21 @@
                             <h6>Include Letters - No</h6>
                             {% endif %}
 
-                            {% if preset.is_digit%}
+                            {% if preset.is_digit %}
                             <h6>Include Numbers - Yes</h6>
                             {% else %}
                             <h6>Include Numbers - No</h6>
                             {% endif %}
 
-                            {% if preset.is_symbol%}
+                            {% if preset.is_symbol %}
                             <h6>Include Symbols - Yes</h6>
                             {% else %}
                             <h6>Include Symbols - No</h6>
                             {% endif %}
 
-                            {% if preset.is_unique%}
+                            <h6>Password Case - {{preset.p_case}}</h6>
+
+                            {% if preset.is_unique %}
                             <h6>Occurence - Unique</h6>
                             {% else %}
                             <h6>Occurence - Repeated</h6>
@@ -95,8 +97,18 @@
                             <div class="border-top pt-3"></div>
                             <form method="post">
                                 {% csrf_token %}
+                                <input type="hidden" name="preset_id" id="preset_id" value="{{preset.id}}">
+
+                                <input type="hidden" name="preset_len" id="preset_len" value="{{preset.p_length}}">
+                                <input type="hidden" name="preset_has_char" id="preset_has_char" value="{{preset.is_letter}}">
+                                <input type="hidden" name="preset_has_num" id="preset_has_num" value="{{preset.is_digit}}">
+                                <input type="hidden" name="preset_has_symb" id="preset_has_symb" value="{{preset.is_symbol}}">
+                                <input type="hidden" name="preset_case" id="preset_case" value="{{preset.p_case}}">
+                                <input type="hidden" name="preset_has_unique" id="preset_has_unique" value="{{preset.is_unique}}">
+                                <input type="hidden" name="preset_num_res" id="preset_num_res" value="{{preset.no_of_results}}">
+
                                 <div class="col">
-                                     <input type="hidden" name="preset_id" id="preset_id" value="{{preset.id}}">
+                                     
                                     <button type="submit" class="btn btn-outline-dark" name="load_preset">Load This Preset</button>
                                     &nbsp;&nbsp;
                                     <button type="submit" class="btn btn-outline-danger" name="remove_preset">Remove This Preset</button>

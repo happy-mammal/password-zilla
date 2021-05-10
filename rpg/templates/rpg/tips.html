@@ -36,10 +36,13 @@
                     <div class="card mb-4">
                         <div class="card-header">Have some tip's to share?</div>
                         <div class="card-body">
-                            <div class="input-group">
-                                <input class="form-control" type="text" placeholder="Enter search term..." aria-label="Enter search term..." aria-describedby="button-search" />
-                                <button class="btn btn-primary" id="button-search" type="button" name="share_tip">Share</button>
+                            <form method="post">
+                                {% csrf_token %}
+                                <div class="input-group">
+                                <input class="form-control" type="text" placeholder="Write your tip here..." aria-label="Write your tip here..." aria-describedby="button-search" name="txt_tip" id="txt_tip" />
+                                <button class="btn btn-primary" id="button-search" type="submit" name="share_tip">Share</button>
                             </div>
+                            </form>
                         </div>
                     </div>
                     
